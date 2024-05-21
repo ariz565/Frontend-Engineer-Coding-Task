@@ -1,27 +1,22 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React, { lazy, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Contacts from "./components/features/Contacts";
 
-function App() {
+const CreateContact = lazy(() => import("./components/features/CreateContact"));
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <h1 className="flex font-medium">Tailwind CSS</h1>
-      </header>
-    </div>
+    <Suspense fallback={<p>Loading...</p>}>
+      <Routes>
+        <Route path="/contacts" element={<Contacts/>} />
+        <Route path="/contacts/edit" element={<CreateContact edit />} />
+        <Route path="/contacts/create" element={<CreateContact />} />
+      </Routes>
+      <ToastContainer />
+    </Suspense>
   );
-}
+};
 
 export default App;
