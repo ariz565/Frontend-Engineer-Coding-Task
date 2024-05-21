@@ -20,14 +20,7 @@ interface Contact {
 const CreateContact = ({ edit }: any) => {
   const { state } = useLocation();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    setParams({
-      firstName: state?.firstName,
-      lastName: state?.lastName,
-      status: state?.status,
-    });
-  }, [state]);
+  const navigate = useNavigate();
 
   const initialStates = {
     firstName: "",
@@ -37,16 +30,24 @@ const CreateContact = ({ edit }: any) => {
 
   const [params, setParams] = useState(initialStates);
 
-  const handleChange = (e: any) => {
+  useEffect(() => {
+    if (state) {
+      setParams({
+        firstName: state.firstName || "",
+        lastName: state.lastName || "",
+        status: state.status || "",
+      });
+    }
+  }, [state]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setParams({ ...params, [name]: value });
   };
 
-  const handleRadio = (e: any) => {
+  const handleRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
     setParams({ ...params, status: e.target.value });
   };
-
-  const navigate = useNavigate();
 
   const handleSubmit = () => {
     const newContact: Contact = { ...params, id: nanoid() };
@@ -61,9 +62,9 @@ const CreateContact = ({ edit }: any) => {
   };
 
   return (
-    <div className="flex lg:flex-row flex-col">
+    <div className="flex flex-col lg:flex-row">
       <Sidebar />
-      <div className="lg:w-[1190px] w-full mt-20">
+      <div className="w-full lg:w-[1190px] mt-20">
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto">
           <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
             {edit ? "Edit Contact" : "Create Contact"}
