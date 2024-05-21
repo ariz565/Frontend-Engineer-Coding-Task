@@ -38,7 +38,7 @@ To set up this project locally, follow these steps:
    cd <project-directory>
    ```
 
-3. Install dependencies:
+3. **Install dependencies:**
 
    ```bash
    npm install
@@ -46,7 +46,7 @@ To set up this project locally, follow these steps:
    yarn install
    ```
 
-4. Start the development server:
+4. **Start the development server:**
 
    ```bash
    npm start
@@ -58,6 +58,9 @@ To set up this project locally, follow these steps:
 
 - '/src': Contains the source code.
 - '/src/components': Reusable components
+- '/src/services': Contains service files responsible for fetching data and API interactions.
+- 'src/store': Contains Redux files for state management.
+- 'src/utils': Utility files for common functionalities.
 
 ## Usage
 
