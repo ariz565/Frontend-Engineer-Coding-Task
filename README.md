@@ -1,46 +1,74 @@
-# Getting Started with Create React App
+# Contact Management App with Charts and Maps
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This React-based web application offers comprehensive contact management features and visualizes COVID-19 data using interactive charts and maps.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### Contact Management
 
-### `npm start`
+- **Add Contacts:** Use a form to add new contacts.
+- **View Contacts:** Display a list of all added contacts.
+- **Contact Details:** View detailed information for each contact.
+- **Edit/Delete Contacts:** Edit or remove existing contacts.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Charts and Maps
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Dashboard:** Interactive charts and maps.
+  - **Line Graph:** Shows worldwide fluctuations in COVID-19 cases.
+  - **Interactive Map:** Uses React Leaflet to display country-wise COVID-19 statistics with markers.
 
-### `npm test`
+## Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js (version 16.x or higher)
+- npm or yarn
 
-### `npm run build`
+## Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To set up this project locally, follow these steps:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. **Clone the repository:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```bash
+   git clone https://github.com/ariz565/Frontend-Engineer-Coding-Task.git
+   ```
 
-### `npm run eject`
+2. **Navigate to the project directory:**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+   ```bash
+   cd <project-directory>
+   ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Install dependencies:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+4. Start the development server:
 
-## Learn More
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Project Structure
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- '/src': Contains the source code.
+- '/src/components': Reusable components
+
+## Usage
+
+After starting the development server, open your browser and navigate to http://localhost:3000. You can then add, view, edit, and delete contacts, as well as view COVID-19 data on charts and maps.
+
+## API Endpoints
+
+The app fetches COVID-19 data from the following APIs:
+
+- **Worldwide Data of Cases:** [https://disease.sh/v3/covid-19/all](https://disease.sh/v3/covid-19/all)
+- **Country Specific Data of Cases:** [https://disease.sh/v3/covid-19/countries](https://disease.sh/v3/covid-19/countries)
+- **Graph Data for Cases with Date:** [https://disease.sh/v3/covid-19/historical/all?lastdays=all](https://disease.sh/v3/covid-19/historical/all?lastdays=all)
+
+These APIs provide essential data for displaying COVID-19 statistics worldwide and by country. You can make requests to these endpoints to retrieve up-to-date information on cases, recoveries, and deaths related to the COVID-19 pandemic.
