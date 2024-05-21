@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Sidebar from "../constants/Layout";
-import LeafletMap from "../services/LeafletMap";
-import ApexChart from "../services/ApexChart";
+import LeafletMap from "../../services/LeafletMap";
+import ApexChart from "../../services/ApexChart";
 
 // Define the structure of the data points
 interface DataPoint {

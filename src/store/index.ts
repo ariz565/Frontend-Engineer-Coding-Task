@@ -21,7 +21,6 @@ const initialState: ContactState = {
   items: [],
 };
 
-
 // create a slice for contacts with actions and reducers
 const contactSlice = createSlice({
   name: "contacts",
@@ -47,7 +46,7 @@ const contactSlice = createSlice({
     updateContact: (state, action: PayloadAction<Contact>) => {
       const index = state.items.findIndex(
         (contact) => contact.id === action.payload.id
-      ); 
+      );
       // find the index of the contact to update
       if (index !== -1) {
         state.items[index] = action.payload;

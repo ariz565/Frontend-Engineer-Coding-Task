@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "./Buttons";
 import { useDispatch } from "react-redux";
-import { removeContact } from "../store";
+import { removeContact } from "../../store";
 
 const Card = ({ details }: any) => {
   const dispatch = useDispatch();

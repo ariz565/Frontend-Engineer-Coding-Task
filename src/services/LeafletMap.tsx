@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import tileLayer from "../utils/titleLayer";

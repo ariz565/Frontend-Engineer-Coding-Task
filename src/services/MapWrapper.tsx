@@ -1,6 +1,5 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import tileLayer from "../utils/titleLayer";
-
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 

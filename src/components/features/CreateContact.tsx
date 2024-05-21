@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../constants/Layout";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addContact, updateContact } from "../store";
+import { addContact, updateContact } from "../../store";
 import { nanoid } from "nanoid";
 
 // Radio button options for contact status
