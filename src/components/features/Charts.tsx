@@ -1,126 +1,96 @@
 import axios from "axios";
-import { useQuery } from "react-query";
 import React, { useEffect, useState } from "react";
 import Sidebar from "../constants/Sidebar";
 import LeafletMap from "../services/LeafletMap";
 import ApexChart from "../services/ApexChart";
 
+// Define the structure of the data points
+interface DataPoint {
+  x: number;
+  y: number;
+}
+
 const Charts = () => {
+  // State to track which content is displayed (true for Line Graph, false for Leaflet Map)
   const [content, setContent] = useState(true);
 
-  const toggle = () => {
-    setContent(!content);
-  };
+  // State variables to hold COVID-19 data
+  const [cases, setCases] = useState<DataPoint[]>([]);
+  const [deaths, setDeaths] = useState<DataPoint[]>([]);
+  const [recovered, setRecovered] = useState<DataPoint[]>([]);
 
-  // Used the useQuery hook to fetch data from the URL and destructures the result into data, error, and isLoading variables.
-  // const {
-  //   data: data,
-  //   error: error,
-  //   isLoading: isLoading,
-  // } = useQuery("getGraphData", async () => {
-  //   const res = await fetch(
-  //     "https://disease.sh/v3/covid-19/historical/all?lastdays=all"
-  //   );
-  //   return res.json();
-  // });
-
-  // console.log(data, "line graph data using react query");
-
-  const [cases, setCases] = useState([] as any);
-  const [deaths, setDeaths] = useState([] as any);
-  const [recovered, setRecovered] = useState([] as any);
-
+  // Function to fetch COVID-19 historical data
   const getData = async () => {
-    axios // fetches data from the URL and sets the data to the respective state variables.
-      .get("https://disease.sh/v3/covid-19/historical/all?lastdays=all")
-      .then((response) => {
-        let { cases, deaths, recovered } = response.data;
+    try {
+      const response = await axios.get(
+        "https://disease.sh/v3/covid-19/historical/all?lastdays=all"
+      );
+      const { cases, deaths, recovered } = response.data;
 
-        // The data is then mapped to an array of objects with x and y properties.
-        let casesDataPoints = [] as any;
-        let deathsDataPoints = [] as any;
-        let recoveredDataPoints = [] as any;
+      // Map data into arrays of objects with x (timestamp) and y (value) properties
+      const casesDataPoints: DataPoint[] = Object.entries(cases).map(
+        ([date, value]) => ({
+          x: new Date(date).getTime(),
+          y: value as number,
+        })
+      );
+      const deathsDataPoints: DataPoint[] = Object.entries(deaths).map(
+        ([date, value]) => ({
+          x: new Date(date).getTime(),
+          y: value as number,
+        })
+      );
+      const recoveredDataPoints: DataPoint[] = Object.entries(recovered).map(
+        ([date, value]) => ({
+          x: new Date(date).getTime(),
+          y: value as number,
+        })
+      );
 
-        let date = new Date();
+      setCases(casesDataPoints);
+      setDeaths(deathsDataPoints);
+      setRecovered(recoveredDataPoints);
 
-        Object.entries(cases).map((item) => {
-          let date = new Date(item[0]);
-          casesDataPoints.push([date.getTime(), item[1]]);
-        });
-
-        Object.entries(deaths).map((item) => {
-          let date = new Date(item[0]);
-          deathsDataPoints.push([date.getTime(), item[1]]);
-        });
-
-        Object.entries(recovered).map((item) => {
-          let date = new Date(item[0]);
-          recoveredDataPoints.push([date.getTime(), item[1]]);
-        });
-
-        setCases(casesDataPoints);
-        setDeaths(deathsDataPoints);
-        setRecovered(recoveredDataPoints);
-
-        console.log(casesDataPoints);
-        console.log(deathsDataPoints);
-        // console.log(recoveredDataPoints);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      console.log(casesDataPoints, deathsDataPoints, recoveredDataPoints);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   };
 
   useEffect(() => {
-    getData();
+    getData(); // Fetch data when the component mounts
   }, []);
-
-  // if (error) {
-  //   return <p>Error occured</p>;
-  // }
-  // if (isLoading) {
-  //   return <p>Loading...</p>;
-  // }
 
   return (
     <div className="flex lg:flex-row flex-col">
       <Sidebar />
       <div className="lg:w-[1190px] w-full flex flex-col justify-center items-center">
-        {!content ? (
-          <div className="flex items-center gap-5">
-            <p className="p-4 text-base text-indigo-500 uppercase cursor-pointer font-medium">
-              Line Graph
-            </p>
-            <p
-              className="p-4 text-base text-primary uppercase cursor-pointer font-medium"
-              onClick={toggle}
-            >
-              Leaflet Map
-            </p>
-          </div>
-        ) : (
-          <div className="flex items-center gap-5">
-            <p
-              className="p-4 text-base text-primary uppercase cursor-pointer font-medium"
-              onClick={toggle}
-            >
-              Line Graph
-            </p>
-            <p className="p-4 text-base text-indigo-500 uppercase ursor-pointer font-medium">
-              Leaflet Map
-            </p>
-          </div>
-        )}
+        <div className="flex items-center gap-5">
+          <p
+            className={`p-4 text-base uppercase cursor-pointer font-medium ${
+              content ? "text-indigo-500" : "text-primary"
+            }`}
+            onClick={() => setContent(true)}
+          >
+            Line Graph
+          </p>
+          <p
+            className={`p-4 text-base uppercase cursor-pointer font-medium ${
+              !content ? "text-indigo-500" : "text-primary"
+            }`}
+            onClick={() => setContent(false)}
+          >
+            Leaflet Map
+          </p>
+        </div>
 
-        {!content ? (
+        {content ? (
           <div className="w-full">
-            {/* <LineChart cases={cases} deaths={deaths} recovered={recovered} /> */}
-            <ApexChart cases={cases} deaths={deaths} recovered={recovered} />
+            <ApexChart cases={cases} deaths={deaths} recovered={recovered} />{" "}
+            {/* Render ApexChart if content is true */}
           </div>
         ) : (
-          <>
-            <LeafletMap />
-          </>
+          <LeafletMap />
         )}
       </div>
     </div>
