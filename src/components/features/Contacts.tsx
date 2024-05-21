@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Button from "../constants/Buttons";
-import Sidebar from "../constants/Sidebar";
+import Sidebar from "../constants/Layout";
 import Card from "../constants/Card";
 import notFound from "../../components/assets/notFound.svg";
 

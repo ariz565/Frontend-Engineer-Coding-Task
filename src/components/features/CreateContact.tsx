@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../constants/Sidebar";
+import Sidebar from "../constants/Layout";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addContact, updateContact } from "../store";
