@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Button from "../constants/Buttons";
 import Sidebar from "../constants/Layout";
 import Card from "../constants/Card";
+import { IoMdPersonAdd } from "react-icons/io";
 import notFound from "../../components/assets/notFound.svg";
 
 const Contacts = () => {
@@ -13,22 +14,22 @@ const Contacts = () => {
   return (
     <div className="flex lg:flex-row flex-col">
       <Sidebar />
-      <div className="lg:w-[1190px] w-full">
-        {/* Button to navigate to create contact page */}
-        <Button
-          text="Create Contact"
-          onClick={() => {
-            navigate("/contacts/create");
-          }}
-        />
-        <p className="text-center text-primary text-lg mt-5 tracking-widest">
-          All Contacts
-        </p>
+      <div className="flex flex-col lg:flex-1 p-5">
+        <div className="flex justify-between items-center w-11/12 mb-5">
+          <span className="text-4xl font-bold">Contacts</span>
+          <Button
+            text="Create Contact"
+            onClick={() => {
+              navigate("/contacts/create");
+            }}
+            Icon={IoMdPersonAdd}
+          />
+        </div>
         <div className="flex flex-col justify-center items-center lg:m-0 m-5">
           {contacts?.items?.length > 0 ? (
             // Render list of contacts if there are any
             <div className="grid lg:grid-cols-2 grid-cols-1 gap-5 mt-10">
-              {contacts.items?.map((item: any) => (
+              {contacts.items.map((item: any) => (
                 <Card details={item} key={item?.id} />
               ))}
             </div>

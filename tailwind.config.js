@@ -5,6 +5,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        customPurple: "#6418C3",
         primary: "#323232",
         secondary: "#525252",
         grayLight: "#f2f2f2",
