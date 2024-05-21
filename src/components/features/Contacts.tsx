@@ -6,46 +6,44 @@ import Card from "../constants/Card";
 import notFound from "../../components/assets/notFound.svg";
 
 const Contacts = () => {
-  // Select contacts from the Redux store
+  // Get contacts from the Redux store
   const contacts = useSelector((state: any) => state.contacts);
-
-  // Initialize navigation hook
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col lg:flex-row">
+    <div className="flex lg:flex-row flex-col">
       <Sidebar />
-      <div className="w-full lg:w-[1190px]">
+      <div className="lg:w-[1190px] w-full">
+        {/* Button to navigate to create contact page */}
         <Button
           text="Create Contact"
           onClick={() => {
             navigate("/contacts/create");
           }}
         />
-        <p className="mt-5 text-lg tracking-widest text-center text-primary">
+        <p className="text-center text-primary text-lg mt-5 tracking-widest">
           All Contacts
         </p>
-
-        <div className="flex flex-col items-center justify-center m-5 lg:m-0">
+        <div className="flex flex-col justify-center items-center lg:m-0 m-5">
           {contacts?.items?.length > 0 ? (
-            // Render contact list if there are contacts available
-            <div className="grid grid-cols-1 gap-5 mt-10 lg:grid-cols-2">
-              {contacts.items.map((item: any) => (
-                <Card details={item} key={item.id} />
+            // Render list of contacts if there are any
+            <div className="grid lg:grid-cols-2 grid-cols-1 gap-5 mt-10">
+              {contacts.items?.map((item: any) => (
+                <Card details={item} key={item?.id} />
               ))}
             </div>
           ) : (
             // Display message if no contacts are available
-            <div className="flex items-center gap-5 p-5 mt-10 border rounded border-primary">
+            <div className="mt-10 border border-primary p-5 rounded flex items-center gap-5">
               <img
                 className="w-[56px] h-[56px]"
                 src={notFound}
                 alt="Not Found"
               />
-              <p className="font-medium text-start text-primary">
+              <p className="text-start text-primary font-medium">
                 No contacts found!
                 <br />
-                Please add a contact using the <br /> Create Contact button.
+                Please add contact from <br /> Create Contact Button
               </p>
             </div>
           )}
